@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	<!-- 全局配置，按需求添加 -->
+	
+	<!-- 批量别名 -->
+	<typeAliases>
+		<package name="com.hyg.yucai.model"/>
+	</typeAliases>
+	
+	<!-- 使用mybatis和spring的整合包进行扫描 -->
+	<!-- 批量mapper映射文件 -->
+		<!-- <mappers>
+			<package name="com.tangwei.ssm.mapper"/>
+		</mappers> -->
+</configuration>

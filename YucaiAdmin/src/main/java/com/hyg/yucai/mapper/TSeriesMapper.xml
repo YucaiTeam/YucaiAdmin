@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hyg.yucai.mapper.TSeriesMapper">
+  <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TSeries">
+    <id column="seriesId" jdbcType="INTEGER" property="seriesid" />
+    <result column="seriesName" jdbcType="VARCHAR" property="seriesname" />
+    <result column="createDate" jdbcType="DATE" property="createdate" />
+    <result column="editDate" jdbcType="DATE" property="editdate" />
+    <result column="standby_field_01" jdbcType="VARCHAR" property="standbyField01" />
+    <result column="standby_field_02" jdbcType="VARCHAR" property="standbyField02" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    seriesId, seriesName, createDate, editDate, standby_field_01, standby_field_02
+  </sql>
+  <select id="selectByExample" parameterType="com.hyg.yucai.model.TSeriesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_series
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_series
+    where seriesId = #{seriesid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_series
+    where seriesId = #{seriesid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hyg.yucai.model.TSeriesExample">
+    delete from t_series
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hyg.yucai.model.TSeries">
+    insert into t_series (seriesId, seriesName, createDate, 
+      editDate, standby_field_01, standby_field_02
+      )
+    values (#{seriesid,jdbcType=INTEGER}, #{seriesname,jdbcType=VARCHAR}, #{createdate,jdbcType=DATE}, 
+      #{editdate,jdbcType=DATE}, #{standbyField01,jdbcType=VARCHAR}, #{standbyField02,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hyg.yucai.model.TSeries">
+    insert into t_series
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seriesid != null">
+        seriesId,
+      </if>
+      <if test="seriesname != null">
+        seriesName,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="editdate != null">
+        editDate,
+      </if>
+      <if test="standbyField01 != null">
+        standby_field_01,
+      </if>
+      <if test="standbyField02 != null">
+        standby_field_02,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seriesid != null">
+        #{seriesid,jdbcType=INTEGER},
+      </if>
+      <if test="seriesname != null">
+        #{seriesname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=DATE},
+      </if>
+      <if test="editdate != null">
+        #{editdate,jdbcType=DATE},
+      </if>
+      <if test="standbyField01 != null">
+        #{standbyField01,jdbcType=VARCHAR},
+      </if>
+      <if test="standbyField02 != null">
+        #{standbyField02,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hyg.yucai.model.TSeriesExample" resultType="java.lang.Long">
+    select count(*) from t_series
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_series
+    <set>
+      <if test="record.seriesid != null">
+        seriesId = #{record.seriesid,jdbcType=INTEGER},
+      </if>
+      <if test="record.seriesname != null">
+        seriesName = #{record.seriesname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null">
+        createDate = #{record.createdate,jdbcType=DATE},
+      </if>
+      <if test="record.editdate != null">
+        editDate = #{record.editdate,jdbcType=DATE},
+      </if>
+      <if test="record.standbyField01 != null">
+        standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standbyField02 != null">
+        standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_series
+    set seriesId = #{record.seriesid,jdbcType=INTEGER},
+      seriesName = #{record.seriesname,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=DATE},
+      editDate = #{record.editdate,jdbcType=DATE},
+      standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
+      standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hyg.yucai.model.TSeries">
+    update t_series
+    <set>
+      <if test="seriesname != null">
+        seriesName = #{seriesname,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=DATE},
+      </if>
+      <if test="editdate != null">
+        editDate = #{editdate,jdbcType=DATE},
+      </if>
+      <if test="standbyField01 != null">
+        standby_field_01 = #{standbyField01,jdbcType=VARCHAR},
+      </if>
+      <if test="standbyField02 != null">
+        standby_field_02 = #{standbyField02,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where seriesId = #{seriesid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hyg.yucai.model.TSeries">
+    update t_series
+    set seriesName = #{seriesname,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=DATE},
+      editDate = #{editdate,jdbcType=DATE},
+      standby_field_01 = #{standbyField01,jdbcType=VARCHAR},
+      standby_field_02 = #{standbyField02,jdbcType=VARCHAR}
+    where seriesId = #{seriesid,jdbcType=INTEGER}
+  </update>
+</mapper>
