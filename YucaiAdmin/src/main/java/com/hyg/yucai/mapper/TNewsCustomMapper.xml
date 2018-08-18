@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.TNewsCustomMapper" >
+<resultMap id="BaseResultMap" type="com.hyg.yucai.model.TNewsCustom" >
+    <id column="newsId" property="newsid" jdbcType="INTEGER" />
+    <result column="newsTitle" property="newstitle" jdbcType="VARCHAR" />
+    <result column="newsGuide" property="newsguide" jdbcType="VARCHAR" />
+    <result column="newsSource" property="newssource" jdbcType="VARCHAR" />
+    <result column="newsAuthor" property="newsauthor" jdbcType="VARCHAR" />
+    <!-- <result column="createDate" property="createdate" jdbcType="TIMESTAMP" /> -->
+    <result column="editDate" property="editdate" jdbcType="TIMESTAMP" />
+    <result column="areaname" property="areaname" jdbcType="VARCHAR" />
+    <result column="bankname" property="bankname" jdbcType="VARCHAR" />
+    <result column="standby_field_01" property="standbyField01" jdbcType="VARCHAR" />
+    <result column="standby_field_02" property="standbyField02" jdbcType="VARCHAR" />
+</resultMap>
+<resultMap id="ResultMapWithBLOBs" type="com.hyg.yucai.model.TNewsCustom" extends="BaseResultMap" >
+    <result column="newsContent" property="newscontent" jdbcType="LONGVARCHAR" />
+</resultMap>
+<!--  -->
+<sql id="Base_Column_List" >
+    newsId, newsTitle, newsGuide, newsSource, newsAuthor, n.editDate, a.areaname, 
+    b.bankname, n.standby_field_01, n.standby_field_02 
+</sql>
+<sql id="Blob_Column_List" >
+    newsContent
+</sql>
+<!--  -->
+<!-- 查询所有 -->
+<select id="selectAllNews" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TNewsCustom">
+    select 
+	<include refid="Base_Column_List" />
+    from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno 
+    order by editDate desc
+    <if test="startindex != null">
+		LIMIT #{startindex}, #{pagesize}
+	</if>
+    
+</select>
+  
+<!-- 动态查询 -->
+<select id="selectAllNewsByDy" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TNewsCustom">
+    select
+    <include refid="Base_Column_List" />
+    from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno
+    order by editDate desc
+    
+    <!-- where标签可以自动添加where，同时处理sql语句中第一个and关键字 -->
+	<where>
+	  <if test="newsid != null" >
+        and newsId=#{newsid}
+      </if>
+      <if test="newstitle != null" >
+        and newsTitle like '%${newstitle}%'
+      </if>
+      <if test="newsguide != null" >
+        and newsGuide like '%${newsguide}%'
+      </if>
+      <if test="newssource != null" >
+        and newsSource like '%${newssource}%'
+      </if>
+      <if test="newsauthor != null" >
+        and newsAuthor like '%${newsauthor}%'
+      </if>
+      <if test="areaname != null" >
+        and a.areaname like '%${areaname}%'
+      </if>
+      <if test="bankname != null" >
+        and b.bankname like '%${bankname}%'
+      </if>
+      <if test="standbyField01 != null" >
+        and n.standby_field_01 like '%${standbyField01}%'
+      </if>
+      <if test="standbyField02 != null" >
+        and n.standby_field_02 like '%${standbyField02}%'
+      </if>
+      <if test="newscontent != null" >
+        and newsContent like '%${newscontent}%'
+      </if>
+      <if test="startdate != null and startdate !=''" >
+        and n.createDate between #{startdate} and #{enddate}
+      </if>
+      <if test="startindex != null">
+		LIMIT #{startindex}, #{pagesize}
+	  </if>
+	</where>
+    
+</select>
+<!-- 模糊查询 -->
+<select id="selectAllNewslikeDy" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TNewsCustom">
+    select
+    <include refid="Base_Column_List" />
+    
+    from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno 
+    order by editDate desc
+    
+    <!-- where标签可以自动添加where，同时处理sql语句中第一个and关键字 -->
+	<where>
+		<if test="textcontent != null" >
+		newsId like '%${textcontent}%'
+		
+        or newsTitle like '%${textcontent}%'
+
+
+        or newsGuide like '%${textcontent}%'
+
+
+        or newsSource like '%${textcontent}%'
+
+
+        or newsAuthor like '%${textcontent}%'
+
+
+        or a.areaname like '%${textcontent}%'
+
+
+        or b.bankname like '%${textcontent}%'
+
+
+        or n.standby_field_01 like '%${textcontent}%'
+
+
+        or n.standby_field_02 like '%${textcontent}%'
+
+        or newsContent like '%${textcontent}%'
+        </if>
+        <if test="startdate != null and startdate !=''" >
+        and n.createDate between #{startdate} and #{enddate}
+      	</if>
+      	<if test="startindex != null">
+			LIMIT #{startindex}, #{pagesize}
+		</if>
+        
+        
+	</where>
+    
+</select>
+
+
+</mapper>

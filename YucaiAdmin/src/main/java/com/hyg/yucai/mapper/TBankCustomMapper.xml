@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.TBankCustomMapper" >
+ <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TBankCustom" >
+    <result column="bankName" property="bankname" jdbcType="VARCHAR" />
+    <result column="bankno" property="bankno" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  
+  <!--  -->
+  	<select id="selectBankNameByNo" resultMap="BaseResultMap"  parameterType="String">
+    select  b.bankName, b.bankno from t_ab ab, t_bank b where ab.bankno=b.bankno and ab.areano=#{areano}
+    </select>
+  <!--  -->
+
+
+
+</mapper>

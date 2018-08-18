@@ -1,32 +1,32 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hyg.yucai.mapper.TAbMapper">
-  <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TAb">
-    <id column="abId" jdbcType="INTEGER" property="abid" />
-    <result column="areano" jdbcType="VARCHAR" property="areano" />
-    <result column="bankno" jdbcType="VARCHAR" property="bankno" />
-    <result column="standby_field_01" jdbcType="VARCHAR" property="standbyField01" />
-    <result column="standby_field_02" jdbcType="VARCHAR" property="standbyField02" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.TAbMapper" >
+  <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TAb" >
+    <id column="abId" property="abid" jdbcType="INTEGER" />
+    <result column="areano" property="areano" jdbcType="VARCHAR" />
+    <result column="bankno" property="bankno" jdbcType="VARCHAR" />
+    <result column="standby_field_01" property="standbyField01" jdbcType="VARCHAR" />
+    <result column="standby_field_02" property="standbyField02" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -37,25 +37,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -66,141 +66,141 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     abId, areano, bankno, standby_field_01, standby_field_02
   </sql>
-  <select id="selectByExample" parameterType="com.hyg.yucai.model.TAbExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hyg.yucai.model.TAbExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from t_ab
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_ab
     where abId = #{abid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_ab
     where abId = #{abid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hyg.yucai.model.TAbExample">
+  <delete id="deleteByExample" parameterType="com.hyg.yucai.model.TAbExample" >
     delete from t_ab
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hyg.yucai.model.TAb">
+  <insert id="insert" parameterType="com.hyg.yucai.model.TAb" >
     insert into t_ab (abId, areano, bankno, 
       standby_field_01, standby_field_02)
     values (#{abid,jdbcType=INTEGER}, #{areano,jdbcType=VARCHAR}, #{bankno,jdbcType=VARCHAR}, 
       #{standbyField01,jdbcType=VARCHAR}, #{standbyField02,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hyg.yucai.model.TAb">
+  <insert id="insertSelective" parameterType="com.hyg.yucai.model.TAb" >
     insert into t_ab
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="abid != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="abid != null" >
         abId,
       </if>
-      <if test="areano != null">
+      <if test="areano != null" >
         areano,
       </if>
-      <if test="bankno != null">
+      <if test="bankno != null" >
         bankno,
       </if>
-      <if test="standbyField01 != null">
+      <if test="standbyField01 != null" >
         standby_field_01,
       </if>
-      <if test="standbyField02 != null">
+      <if test="standbyField02 != null" >
         standby_field_02,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="abid != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="abid != null" >
         #{abid,jdbcType=INTEGER},
       </if>
-      <if test="areano != null">
+      <if test="areano != null" >
         #{areano,jdbcType=VARCHAR},
       </if>
-      <if test="bankno != null">
+      <if test="bankno != null" >
         #{bankno,jdbcType=VARCHAR},
       </if>
-      <if test="standbyField01 != null">
+      <if test="standbyField01 != null" >
         #{standbyField01,jdbcType=VARCHAR},
       </if>
-      <if test="standbyField02 != null">
+      <if test="standbyField02 != null" >
         #{standbyField02,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hyg.yucai.model.TAbExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.hyg.yucai.model.TAbExample" resultType="java.lang.Integer" >
     select count(*) from t_ab
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update t_ab
-    <set>
-      <if test="record.abid != null">
+    <set >
+      <if test="record.abid != null" >
         abId = #{record.abid,jdbcType=INTEGER},
       </if>
-      <if test="record.areano != null">
+      <if test="record.areano != null" >
         areano = #{record.areano,jdbcType=VARCHAR},
       </if>
-      <if test="record.bankno != null">
+      <if test="record.bankno != null" >
         bankno = #{record.bankno,jdbcType=VARCHAR},
       </if>
-      <if test="record.standbyField01 != null">
+      <if test="record.standbyField01 != null" >
         standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
       </if>
-      <if test="record.standbyField02 != null">
+      <if test="record.standbyField02 != null" >
         standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update t_ab
     set abId = #{record.abid,jdbcType=INTEGER},
       areano = #{record.areano,jdbcType=VARCHAR},
       bankno = #{record.bankno,jdbcType=VARCHAR},
       standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
       standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hyg.yucai.model.TAb">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hyg.yucai.model.TAb" >
     update t_ab
-    <set>
-      <if test="areano != null">
+    <set >
+      <if test="areano != null" >
         areano = #{areano,jdbcType=VARCHAR},
       </if>
-      <if test="bankno != null">
+      <if test="bankno != null" >
         bankno = #{bankno,jdbcType=VARCHAR},
       </if>
-      <if test="standbyField01 != null">
+      <if test="standbyField01 != null" >
         standby_field_01 = #{standbyField01,jdbcType=VARCHAR},
       </if>
-      <if test="standbyField02 != null">
+      <if test="standbyField02 != null" >
         standby_field_02 = #{standbyField02,jdbcType=VARCHAR},
       </if>
     </set>
     where abId = #{abid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hyg.yucai.model.TAb">
+  <update id="updateByPrimaryKey" parameterType="com.hyg.yucai.model.TAb" >
     update t_ab
     set areano = #{areano,jdbcType=VARCHAR},
       bankno = #{bankno,jdbcType=VARCHAR},

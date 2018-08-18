@@ -1,37 +1,37 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hyg.yucai.mapper.TAdminMapper">
-  <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TAdmin">
-    <id column="adminId" jdbcType="INTEGER" property="adminid" />
-    <result column="adminName" jdbcType="VARCHAR" property="adminname" />
-    <result column="realName" jdbcType="VARCHAR" property="realname" />
-    <result column="password" jdbcType="VARCHAR" property="password" />
-    <result column="registDate" jdbcType="DATE" property="registdate" />
-    <result column="logTime" jdbcType="DATE" property="logtime" />
-    <result column="adminPhone" jdbcType="VARCHAR" property="adminphone" />
-    <result column="delFlag" jdbcType="INTEGER" property="delflag" />
-    <result column="standby_field_01" jdbcType="VARCHAR" property="standbyField01" />
-    <result column="standby_field_02" jdbcType="VARCHAR" property="standbyField02" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.TAdminMapper" >
+  <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TAdmin" >
+    <id column="adminId" property="adminid" jdbcType="INTEGER" />
+    <result column="adminName" property="adminname" jdbcType="VARCHAR" />
+    <result column="realName" property="realname" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="registDate" property="registdate" jdbcType="TIMESTAMP" />
+    <result column="logTime" property="logtime" jdbcType="TIMESTAMP" />
+    <result column="adminPhone" property="adminphone" jdbcType="VARCHAR" />
+    <result column="delFlag" property="delflag" jdbcType="INTEGER" />
+    <result column="standby_field_01" property="standbyField01" jdbcType="VARCHAR" />
+    <result column="standby_field_02" property="standbyField02" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -42,25 +42,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -71,217 +71,217 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     adminId, adminName, realName, password, registDate, logTime, adminPhone, delFlag, 
     standby_field_01, standby_field_02
   </sql>
-  <select id="selectByExample" parameterType="com.hyg.yucai.model.TAdminExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hyg.yucai.model.TAdminExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from t_admin
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
     from t_admin
     where adminId = #{adminid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from t_admin
     where adminId = #{adminid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hyg.yucai.model.TAdminExample">
+  <delete id="deleteByExample" parameterType="com.hyg.yucai.model.TAdminExample" >
     delete from t_admin
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hyg.yucai.model.TAdmin">
+  <insert id="insert" parameterType="com.hyg.yucai.model.TAdmin" >
     insert into t_admin (adminId, adminName, realName, 
       password, registDate, logTime, 
       adminPhone, delFlag, standby_field_01, 
       standby_field_02)
     values (#{adminid,jdbcType=INTEGER}, #{adminname,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{registdate,jdbcType=DATE}, #{logtime,jdbcType=DATE}, 
+      #{password,jdbcType=VARCHAR}, #{registdate,jdbcType=TIMESTAMP}, #{logtime,jdbcType=TIMESTAMP}, 
       #{adminphone,jdbcType=VARCHAR}, #{delflag,jdbcType=INTEGER}, #{standbyField01,jdbcType=VARCHAR}, 
       #{standbyField02,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hyg.yucai.model.TAdmin">
+  <insert id="insertSelective" parameterType="com.hyg.yucai.model.TAdmin" >
     insert into t_admin
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="adminid != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="adminid != null" >
         adminId,
       </if>
-      <if test="adminname != null">
+      <if test="adminname != null" >
         adminName,
       </if>
-      <if test="realname != null">
+      <if test="realname != null" >
         realName,
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         password,
       </if>
-      <if test="registdate != null">
+      <if test="registdate != null" >
         registDate,
       </if>
-      <if test="logtime != null">
+      <if test="logtime != null" >
         logTime,
       </if>
-      <if test="adminphone != null">
+      <if test="adminphone != null" >
         adminPhone,
       </if>
-      <if test="delflag != null">
+      <if test="delflag != null" >
         delFlag,
       </if>
-      <if test="standbyField01 != null">
+      <if test="standbyField01 != null" >
         standby_field_01,
       </if>
-      <if test="standbyField02 != null">
+      <if test="standbyField02 != null" >
         standby_field_02,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="adminid != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="adminid != null" >
         #{adminid,jdbcType=INTEGER},
       </if>
-      <if test="adminname != null">
+      <if test="adminname != null" >
         #{adminname,jdbcType=VARCHAR},
       </if>
-      <if test="realname != null">
+      <if test="realname != null" >
         #{realname,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
-      <if test="registdate != null">
-        #{registdate,jdbcType=DATE},
+      <if test="registdate != null" >
+        #{registdate,jdbcType=TIMESTAMP},
       </if>
-      <if test="logtime != null">
-        #{logtime,jdbcType=DATE},
+      <if test="logtime != null" >
+        #{logtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="adminphone != null">
+      <if test="adminphone != null" >
         #{adminphone,jdbcType=VARCHAR},
       </if>
-      <if test="delflag != null">
+      <if test="delflag != null" >
         #{delflag,jdbcType=INTEGER},
       </if>
-      <if test="standbyField01 != null">
+      <if test="standbyField01 != null" >
         #{standbyField01,jdbcType=VARCHAR},
       </if>
-      <if test="standbyField02 != null">
+      <if test="standbyField02 != null" >
         #{standbyField02,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hyg.yucai.model.TAdminExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.hyg.yucai.model.TAdminExample" resultType="java.lang.Integer" >
     select count(*) from t_admin
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update t_admin
-    <set>
-      <if test="record.adminid != null">
+    <set >
+      <if test="record.adminid != null" >
         adminId = #{record.adminid,jdbcType=INTEGER},
       </if>
-      <if test="record.adminname != null">
+      <if test="record.adminname != null" >
         adminName = #{record.adminname,jdbcType=VARCHAR},
       </if>
-      <if test="record.realname != null">
+      <if test="record.realname != null" >
         realName = #{record.realname,jdbcType=VARCHAR},
       </if>
-      <if test="record.password != null">
+      <if test="record.password != null" >
         password = #{record.password,jdbcType=VARCHAR},
       </if>
-      <if test="record.registdate != null">
-        registDate = #{record.registdate,jdbcType=DATE},
+      <if test="record.registdate != null" >
+        registDate = #{record.registdate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.logtime != null">
-        logTime = #{record.logtime,jdbcType=DATE},
+      <if test="record.logtime != null" >
+        logTime = #{record.logtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.adminphone != null">
+      <if test="record.adminphone != null" >
         adminPhone = #{record.adminphone,jdbcType=VARCHAR},
       </if>
-      <if test="record.delflag != null">
+      <if test="record.delflag != null" >
         delFlag = #{record.delflag,jdbcType=INTEGER},
       </if>
-      <if test="record.standbyField01 != null">
+      <if test="record.standbyField01 != null" >
         standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
       </if>
-      <if test="record.standbyField02 != null">
+      <if test="record.standbyField02 != null" >
         standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR},
       </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update t_admin
     set adminId = #{record.adminid,jdbcType=INTEGER},
       adminName = #{record.adminname,jdbcType=VARCHAR},
       realName = #{record.realname,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
-      registDate = #{record.registdate,jdbcType=DATE},
-      logTime = #{record.logtime,jdbcType=DATE},
+      registDate = #{record.registdate,jdbcType=TIMESTAMP},
+      logTime = #{record.logtime,jdbcType=TIMESTAMP},
       adminPhone = #{record.adminphone,jdbcType=VARCHAR},
       delFlag = #{record.delflag,jdbcType=INTEGER},
       standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
       standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR}
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hyg.yucai.model.TAdmin">
+  <update id="updateByPrimaryKeySelective" parameterType="com.hyg.yucai.model.TAdmin" >
     update t_admin
-    <set>
-      <if test="adminname != null">
+    <set >
+      <if test="adminname != null" >
         adminName = #{adminname,jdbcType=VARCHAR},
       </if>
-      <if test="realname != null">
+      <if test="realname != null" >
         realName = #{realname,jdbcType=VARCHAR},
       </if>
-      <if test="password != null">
+      <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
       </if>
-      <if test="registdate != null">
-        registDate = #{registdate,jdbcType=DATE},
+      <if test="registdate != null" >
+        registDate = #{registdate,jdbcType=TIMESTAMP},
       </if>
-      <if test="logtime != null">
-        logTime = #{logtime,jdbcType=DATE},
+      <if test="logtime != null" >
+        logTime = #{logtime,jdbcType=TIMESTAMP},
       </if>
-      <if test="adminphone != null">
+      <if test="adminphone != null" >
         adminPhone = #{adminphone,jdbcType=VARCHAR},
       </if>
-      <if test="delflag != null">
+      <if test="delflag != null" >
         delFlag = #{delflag,jdbcType=INTEGER},
       </if>
-      <if test="standbyField01 != null">
+      <if test="standbyField01 != null" >
         standby_field_01 = #{standbyField01,jdbcType=VARCHAR},
       </if>
-      <if test="standbyField02 != null">
+      <if test="standbyField02 != null" >
         standby_field_02 = #{standbyField02,jdbcType=VARCHAR},
       </if>
     </set>
     where adminId = #{adminid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hyg.yucai.model.TAdmin">
+  <update id="updateByPrimaryKey" parameterType="com.hyg.yucai.model.TAdmin" >
     update t_admin
     set adminName = #{adminname,jdbcType=VARCHAR},
       realName = #{realname,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
-      registDate = #{registdate,jdbcType=DATE},
-      logTime = #{logtime,jdbcType=DATE},
+      registDate = #{registdate,jdbcType=TIMESTAMP},
+      logTime = #{logtime,jdbcType=TIMESTAMP},
       adminPhone = #{adminphone,jdbcType=VARCHAR},
       delFlag = #{delflag,jdbcType=INTEGER},
       standby_field_01 = #{standbyField01,jdbcType=VARCHAR},

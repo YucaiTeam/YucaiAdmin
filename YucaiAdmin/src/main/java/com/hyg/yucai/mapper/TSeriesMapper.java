@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TSeriesMapper {
-    long countByExample(TSeriesExample example);
+    int countByExample(TSeriesExample example);
 
     int deleteByExample(TSeriesExample example);
 

@@ -1,12 +1,14 @@
 package com.hyg.yucai.mapper;
 
-import com.hyg.yucai.model.TBank;
-import com.hyg.yucai.model.TBankExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.hyg.yucai.model.TBank;
+import com.hyg.yucai.model.TBankExample;
+
 public interface TBankMapper {
-    long countByExample(TBankExample example);
+    int countByExample(TBankExample example);
 
     int deleteByExample(TBankExample example);
 
@@ -17,7 +19,10 @@ public interface TBankMapper {
     int insertSelective(TBank record);
 
     List<TBank> selectByExample(TBankExample example);
-
+    //    
+    List<TBank> selectBankNameandNo(TBankExample example);
+    
+    ///
     TBank selectByPrimaryKey(Integer bankid);
 
     int updateByExampleSelective(@Param("record") TBank record, @Param("example") TBankExample example);

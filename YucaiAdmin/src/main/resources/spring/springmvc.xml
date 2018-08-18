@@ -13,12 +13,23 @@
 	<context:component-scan base-package="com.hyg.yucai.controller"></context:component-scan>
 	
 	<!-- 注解驱动 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+	
+	<!--  -->
+	<bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<set>
+				<bean class="com.hyg.yucai.utils.DateConverter" />
+			</set>
+		</property>
+	</bean>
 	
 	<!-- 视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
+	
+	
 
 </beans>

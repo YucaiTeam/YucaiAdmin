@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TAreaMapper {
-    long countByExample(TAreaExample example);
+    int countByExample(TAreaExample example);
 
     int deleteByExample(TAreaExample example);
 
@@ -17,6 +17,9 @@ public interface TAreaMapper {
     int insertSelective(TArea record);
 
     List<TArea> selectByExample(TAreaExample example);
+    
+    
+    List<TArea> selectAllNameAndNo(TAreaExample example);
 
     TArea selectByPrimaryKey(Integer areaid);
 

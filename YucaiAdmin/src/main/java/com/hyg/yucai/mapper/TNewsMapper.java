@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface TNewsMapper {
-    long countByExample(TNewsExample example);
+    int countByExample(TNewsExample example);
 
     int deleteByExample(TNewsExample example);
 
