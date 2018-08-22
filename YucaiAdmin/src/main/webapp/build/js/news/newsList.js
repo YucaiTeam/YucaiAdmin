@@ -69,7 +69,7 @@ $(function() {
 	/**
 	 * 表格中的删除按钮点击事件
 	 */
-	$('#table tbody').on('click', '.btn-del', function(e) {
+	$('#table tbody').on('click', '.btnDel', function(e) {
 		e.preventDefault();
 		// 获取到当前行的数据data json格式
 		var item = _table.row($(this).closest('tr')).data();
@@ -464,8 +464,10 @@ var defaultOption = {
 	// 进行 编辑 删除 按钮的添加
 	"createdRow" : function(row, data, index) {
 		// 不使用render，改用jquery文档操作呈现单元格
-		var $btnEdit = $('<button type="button" class="btn btn-edit">修改</button>');
-		var $btnDel = $('<button type="button" class="btn btn-danger btn-del">删除</button>');
+		/*var $btnEdit = $('<button type="button" class="btn btn-edit">修改</button>');*/
+		var $btnEdit = $('<div class="btnEdit"></div>');
+		var $btnDel = $('<div class="btnDel"></div>');
+		/*var $btnDel = $('<button type="button" class="btn btn-danger btn-del">删除</button>');*/
 		$('td', row).eq(7).append($btnEdit).append($btnDel);
 	}
 };

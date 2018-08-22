@@ -37,8 +37,8 @@
 	text-overflow:ellipsis;
 } 
 #table tbody tr td:last-child{
-	min-width:100px;
-	max-width:100px;
+	min-width:70px;
+	max-width:70px;
 }
 
 
@@ -177,6 +177,39 @@ input::-ms-input-placeholder { /* Internet Explorer 10+ */
 	margin-left:10px;
 }
 
+/* 将按钮转换成图片 */
+.btnEdit,.btnDel{
+	width:30px;
+	height:30px;
+	display:inline-block;
+	
+	background-position:center;
+	background-repeat:no-repeat;
+	
+	cursor:pointer;
+	opacity:0.7;
+}
+.btnEdit:hover,.btnDel:hover{
+	opacity:1;
+	animation:scaleShow 0.7s  1 forwards;
+}
+.btnEdit{
+	margin-right:5px;
+	background-image:url(../../images/courseList_edit.png);
+	background-size:75% 75%;
+}
+.btnDel{
+	margin-left:5px;
+	background-image:url(../../images/courseList_del.png);
+	background-size:80% 80%;
+}
+/* 最后一列右padding去掉 */
+.mdl-data-table td:last-of-type, .mdl-data-table th:last-of-type {
+    padding-right: 10px;
+}
+
+
+
 /* 响应式 */
 @media screen and (max-width:839px){
 	/* .searchButton{
@@ -209,6 +242,14 @@ input::-ms-input-placeholder { /* Internet Explorer 10+ */
 		float:left;
 	}
 }
+
+/* 动画 */
+@keyframes scaleShow{
+    0%{opacity: 0.5;transform:scale(1,1) }
+     100%{opacity: 1;transform:scale(1.2,1.2) }
+}
+
 @media screen and (min-width: 360px) and (max-width: 650px) {
 	
 }
+

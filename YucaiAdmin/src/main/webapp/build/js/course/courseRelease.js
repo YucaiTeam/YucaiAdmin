@@ -1,4 +1,14 @@
 $(function(){
+	
+	//loading动画
+	function showLoading(){
+		$(".spinner").css("visibility","visible");
+	}
+	function hideLoading(){
+		$(".spinner").css("visibility","hidden");
+	}
+	
+	
 	//添加系列按钮点击
 	$(".addImage").click(function(){
 		$("#addSeriesModal").modal("show");
@@ -7,6 +17,7 @@ $(function(){
 	getSeriesData();
 	//请求ajax，获取系列下拉列表的值
 	function getSeriesData(){
+		showLoading();
 		$.ajax({
 			type : "POST",
 			url : url+"YucaiAdmin/findallseries.action",
@@ -21,15 +32,20 @@ $(function(){
 				}
 				
 				$(".selectSeries").html(html);
+				setTimeout(function(){
+					hideLoading();
+				},500);				
 			},
 			error : function(data) {
 				console.log(data);
+				hideLoading();
 			}
 		});
 	}
 	
 	$(".submitBtn").click(function(){
 		if(checkCourseData()){
+			showLoading();
 			var form = $("#courseForm");
 			$.ajax({
 				type : "POST",
@@ -46,10 +62,12 @@ $(function(){
 						//添加失败
 						showTips("添加失败");
 					}
+					hideLoading();
 				},
 				error : function(data) {
 					//添加失败
 					showTips("添加失败");
+					hideLoading();
 				}
 			});
 		}else{
@@ -59,6 +77,7 @@ $(function(){
 	
 	$(".addSeriesBtn").click(function(){
 		if(checkSeriesData()){
+			showLoading();
 			var form = $("#seriesForm");
 			$.ajax({
 				type : "POST",

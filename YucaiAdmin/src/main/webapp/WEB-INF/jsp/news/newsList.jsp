@@ -300,7 +300,7 @@ KindEditor.ready(function(K) {
 	/*
 	* 编辑按钮点击
 	*/
-	$('#table').on("click", ".btn-edit", function() {
+	$('#table').on("click", ".btnEdit", function() {
 		var _table = $().getTable_();
 		var item = _table.row($(this).closest('tr')).data();
 		//获取到item内的id即可

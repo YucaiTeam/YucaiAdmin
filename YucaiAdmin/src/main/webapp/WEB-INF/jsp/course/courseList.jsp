@@ -15,14 +15,20 @@
 <title>课程列表</title>
 </head>
 <body>
+	<!-- loading 等待动画 -->
+	<div class="spinner" style="visibility:visible">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+    <!-- 右悬浮 添加新的系列  -->
 	<div class="addSeriesPanel" title="添加新的系列"></div>
     <div class="main">
 		<div class="panel-group" id="accordion">
-			<!-- 系列1 -->
+			<!-- 系列 -->
 		</div>
 	</div>
 	
-	<!-- 模态框（Modal） -->
+	<!-- 模态框（Modal） 添加课程   -->
 	<div class="modal fade" id="addCourseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -98,7 +104,7 @@
 							        <button type="button" class="btn btn-info addCourseClearBtn">清空内容</button>
 							      </div> 
 							      <div class="col-sm-6">
-							        <button type="button" class="btn  addCourseSaveBtn">保存修改</button>
+							        <button type="button" class="btn  addCourseSaveBtn">确认添加</button>
 							      </div>     
 							 </div>	
 						   
@@ -114,7 +120,7 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	
-	<!-- 模态框（Modal） -->
+	<!-- 模态框（Modal） 修改课程    -->
 	<div class="modal fade" id="editCourseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -207,7 +213,7 @@
 	</div><!-- /.modal -->
 	
 	
-	<!-- 添加系列模态框（Modal） -->
+	<!-- 添加系列模态框（Modal）添加系列   -->
 	<div class="modal fade" id="addSeriesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

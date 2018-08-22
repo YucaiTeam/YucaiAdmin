@@ -176,9 +176,6 @@ table tbody tr td:nth-child(4){
 }
 
 /* 没有数据的时候的格式 */
-.noCourse{
-	margin-left:6%;
-}
 
 /* 添加Series的样式 */
 .addSeriesPanel{

@@ -17,6 +17,13 @@
 <title>发布课程</title>
 </head>
 <body>
+
+	<!-- loading 等待动画 -->
+	<div class="spinner" style="visibility:visible">
+      <div class="double-bounce1"></div>
+      <div class="double-bounce2"></div>
+    </div>
+
 	<div class="main">
 		<div class="container">
 			<form id="courseForm">
