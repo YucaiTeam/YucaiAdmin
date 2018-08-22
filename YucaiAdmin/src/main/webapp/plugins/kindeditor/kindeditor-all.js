@@ -4851,9 +4851,9 @@ function KEditor(options) {
 	setOption('height', _undef(self.height, self.minHeight));
 	setOption('width', _addUnit(self.width));
 	setOption('height', _addUnit(self.height));
-	if (_MOBILE && (!_IOS || _V < 534)) {
+	/*if (_MOBILE && (!_IOS || _V < 534)) {
 		self.designMode = false;
-	}
+	}*/
 	self.srcElement = se;
 	self.initContent = '';
 	self.plugin = {};

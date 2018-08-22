@@ -1,0 +1,214 @@
+*{
+	padding:0;
+	margin:0;
+}
+/* input输入时的边框颜色 */
+.form-control:focus{
+	box-shadow: 0px 0px 5px #009688;
+}
+#table{
+    border-radius: 5px;
+    width:100%;
+}
+.dt-table{
+	margin-top:1%;
+}
+/* dataTables列内容居中 */
+#table>tbody>tr>td{
+    text-align:center;
+    vertical-align: middle;
+    
+}
+#table>tbody>tr>td:nth-child(2){
+    text-align:left;
+    cursor:pointer;
+}
+ 
+/* dataTables表头居中 */
+#table>thead:first-child>tr:first-child>th{
+    text-align:center;
+    vertical-align: middle;
+    font-size:1.1rem;;
+}
+#table tbody tr td:nth-child(2){
+	min-width:200px;
+	max-width:200px;
+	overflow: hidden;
+	text-overflow:ellipsis;
+} 
+#table tbody tr td:last-child{
+	min-width:100px;
+	max-width:100px;
+}
+
+
+/* 表格内 按钮*/
+.btn-edit,.btn-del,.searchButton,.saveBtn{
+	border-radius:2px;
+}
+.btn-del{
+	margin-left:6px;
+}
+.btn-edit{
+	margin-right:6px;
+}
+.btn-edit,.searchButton,.saveBtn{
+	color:white;
+	background-color:#009588;
+	border:1px solid #009588;
+}
+.btn-edit:hover,.searchButton:hover,.saveBtn:hover{
+	color:white;
+	background-color:#007366;
+	border:1px solid #009588;
+}
+.btn-edit:focus,.searchButton:focus,.saveBtn:focus{
+	color:white;
+	background-color:#007366;
+	border:1px solid #009588;
+}
+
+.btn-edit:active,.searchButton:active{
+	color:white;
+	background-color:#00a28d;
+	border:1px solid #009588;
+}
+
+
+
+/* 设置搜索框的格式  */
+input[type="text"]{
+	font-size:1.3rem;
+}
+
+/* 编辑模态框 */
+input::-webkit-input-placeholder { /* WebKit browsers */
+	font-size:1.1rem;
+}
+input::-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+	font-size:1.1rem;
+}
+input::-moz-placeholder { /* Mozilla Firefox 19+ */
+	font-size:1.1rem;
+}
+input::-ms-input-placeholder { /* Internet Explorer 10+ */
+	font-size:1.1rem;
+}
+.newsGuid{
+	font-size:1.3rem;
+}
+/* 模态框的宽度 */
+.modal-dialog {
+    width: 90%;
+    margin: 30px auto;
+}
+.row {
+    margin-bottom: 2.5%;
+    width: 95%;
+}
+.saveBtn{
+	float:right;
+}
+.editModelButton{
+	width:91%;
+}
+.selectArea,.selectBank{
+	width:70%;
+}
+.source,.author{
+	width:70%;
+}
+.searchButton,select.input-sm,.form-control.inputArgs{
+	-webkit-transition: 0.5s ease;
+}
+.saveBtn{
+	float:left;
+}
+
+
+
+/* 鼠标移入出现框 */
+.tableShow{
+	width:200px;
+	background-color:#f0f0f0;
+	position:absolute;
+	z-index:2000;
+	height:auto;
+	white-space:normal;
+	word-wrap: break-word;
+	border:1px solid rgba(100,100,100,0.5);
+	padding:5px;
+	border-radius:5px;
+	box-shadow: 3px 2px 2px rgba(100,100,100,0.2);
+}
+.tableShow{
+	-webkit-transition: 0.5s ease;
+}
+
+/* 设置时间样式 */
+.myControl{
+	float:right;
+}
+.dates{
+	display:inline-block;
+	padding:0;
+}
+.form_date{
+	width:25%;
+	margin-right:3%;
+}
+
+.inputDate{
+	font-size:200px;
+}
+
+/* 搜索参数格式 */
+.args{
+	display:inline-block;
+	float:right;
+	padding-right:0;
+}
+.inputArgsClear{
+	cursor:pointer;
+	display:inline-block;
+	margin:0px 10px;
+}
+.searchButton{
+	margin-left:10px;
+}
+
+/* 响应式 */
+@media screen and (max-width:839px){
+	/* .searchButton{
+		 margin-left: 0px;
+		 width:100%;
+		 margin-top:3%;
+	} */
+	/* .form-control.inputArgs {
+	    width: 100%;
+	} */
+	.dates,.args{
+		float:left;
+		margin-top:3%;
+		padding:0;
+	}
+	.searchButton{
+		 margin-left: 0px;
+		 width:100%;
+		 margin-top:3%;
+	}
+	.form_date{
+		width:100%;
+		margin-right:3%;
+		margin-top:2%;
+	}
+	select.input-sm {
+    	display:inline-block;
+	}
+	.myControl{
+		float:left;
+	}
+}
+@media screen and (min-width: 360px) and (max-width: 650px) {
+	
+}

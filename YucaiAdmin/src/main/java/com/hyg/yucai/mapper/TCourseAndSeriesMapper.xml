@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.TCourseAndSeriesMapper">
+
+	<resultMap type="com.hyg.yucai.model.TCouresAndSeries" id="CouresAndSeriesResultMapper">
+		<id column="seriesId" jdbcType="INTEGER" property="seriesid"/>
+		<result column="seriesName" jdbcType="VARCHAR" property="seriesname"/>
+		<!-- 一对多查询 -->
+		<collection property="tCourse" ofType="com.hyg.yucai.model.TCourse">
+			<id column="courseId" jdbcType="INTEGER" property="courseid"/>
+			<result column="courseSort" jdbcType="VARCHAR" property="coursesort"/>
+			<result column="courseDetail" jdbcType="VARCHAR" property="coursedetail"/>
+			<result column="courseHour" jdbcType="VARCHAR" property="coursehour"/>
+			<result column="coursePrice" jdbcType="VARCHAR" property="courseprice"/>
+		</collection>
+	</resultMap>
+
+	<select id="selectCourseAndSeries" resultMap="CouresAndSeriesResultMapper">
+		select 
+		t_series.seriesId,t_series.seriesName,
+		t_course.courseId,t_course.courseSort,t_course.courseDetail,t_course.courseHour,t_course.coursePrice
+		from 	t_series left join t_course on 	t_series.seriesId=t_course.seriesId
+		order by t_series.editDate desc
+	</select>
+</mapper>

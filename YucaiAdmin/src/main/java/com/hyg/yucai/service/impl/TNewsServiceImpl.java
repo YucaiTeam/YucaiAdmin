@@ -42,8 +42,42 @@ public class TNewsServiceImpl implements TNewsService{
 	}
 	@Override
 	public List<TNewsCustom> findAllNewslikeDy(TNewsCustom newsCustom) throws Exception {
+		
 		List<TNewsCustom> newscustomlist=tNewsCustomMapper.selectAllNewslikeDy(newsCustom);
 		return newscustomlist;
+	}
+	@Override
+	public int findAllNewsCount() throws Exception {
+		
+		return tNewsmapper.countByExample(null);
+	}
+	@Override
+	public int deleteById(TNews news) throws Exception {
+		int x=tNewsmapper.deleteByPrimaryKey(news.getNewsid());
+		return x;
+	}
+	@Override
+	public int updateById(TNews news) throws Exception {
+		int x=tNewsmapper.updateByPrimaryKeySelective(news);
+		return x;
+	}
+	@Override
+	public List<TNewsCustom> findNewsByDy(TNewsCustom newsCustom)
+			throws Exception {
+		List<TNewsCustom> newscustomlist=tNewsCustomMapper.selectNewsByDy(newsCustom);
+		return newscustomlist;
+	}
+	@Override
+	public TNews findByIDWithBLOBs(TNews news) throws Exception {
+		//查询数据库
+		TNews tnews = tNewsmapper.selectByPrimaryKey(news.getNewsid());
+		return tnews;
+	}
+	@Override
+	public int findAllNewslikeDyAndCount(TNewsCustom newsCustom)
+			throws Exception {
+		int count=tNewsCustomMapper.selectAllNewslikeDyAndCount(newsCustom);
+		return count;
 	}
 
 }

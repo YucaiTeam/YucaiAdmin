@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.TQuestionMapper" >
+  <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TQuestion" >
+    <id column="questionId" property="questionid" jdbcType="INTEGER" />
+    <result column="questionOption1" property="questionoption1" jdbcType="VARCHAR" />
+    <result column="questionOption2" property="questionoption2" jdbcType="VARCHAR" />
+    <result column="questionOption3" property="questionoption3" jdbcType="VARCHAR" />
+    <result column="questionOption4" property="questionoption4" jdbcType="VARCHAR" />
+    <result column="questionAnswer" property="questionanswer" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="editDate" property="editdate" jdbcType="TIMESTAMP" />
+    <result column="standby_field_01" property="standbyField01" jdbcType="VARCHAR" />
+    <result column="standby_field_02" property="standbyField02" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hyg.yucai.model.TQuestionWithBLOBs" extends="BaseResultMap" >
+    <result column="questionTopic" property="questiontopic" jdbcType="LONGVARCHAR" />
+    <result column="questionAnalysis" property="questionanalysis" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    questionId, questionOption1, questionOption2, questionOption3, questionOption4, questionAnswer, 
+    createDate, editDate, standby_field_01, standby_field_02
+  </sql>
+  <sql id="Blob_Column_List" >
+    questionTopic, questionAnalysis
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TQuestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hyg.yucai.model.TQuestionExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_question
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_question
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hyg.yucai.model.TQuestionExample" >
+    delete from t_question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hyg.yucai.model.TQuestionWithBLOBs" >
+    insert into t_question (questionId, questionOption1, questionOption2, 
+      questionOption3, questionOption4, questionAnswer, 
+      createDate, editDate, standby_field_01, 
+      standby_field_02, questionTopic, questionAnalysis
+      )
+    values (#{questionid,jdbcType=INTEGER}, #{questionoption1,jdbcType=VARCHAR}, #{questionoption2,jdbcType=VARCHAR}, 
+      #{questionoption3,jdbcType=VARCHAR}, #{questionoption4,jdbcType=VARCHAR}, #{questionanswer,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{editdate,jdbcType=TIMESTAMP}, #{standbyField01,jdbcType=VARCHAR}, 
+      #{standbyField02,jdbcType=VARCHAR}, #{questiontopic,jdbcType=LONGVARCHAR}, #{questionanalysis,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hyg.yucai.model.TQuestionWithBLOBs" >
+    insert into t_question
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="questionid != null" >
+        questionId,
+      </if>
+      <if test="questionoption1 != null" >
+        questionOption1,
+      </if>
+      <if test="questionoption2 != null" >
+        questionOption2,
+      </if>
+      <if test="questionoption3 != null" >
+        questionOption3,
+      </if>
+      <if test="questionoption4 != null" >
+        questionOption4,
+      </if>
+      <if test="questionanswer != null" >
+        questionAnswer,
+      </if>
+      <if test="createdate != null" >
+        createDate,
+      </if>
+      <if test="editdate != null" >
+        editDate,
+      </if>
+      <if test="standbyField01 != null" >
+        standby_field_01,
+      </if>
+      <if test="standbyField02 != null" >
+        standby_field_02,
+      </if>
+      <if test="questiontopic != null" >
+        questionTopic,
+      </if>
+      <if test="questionanalysis != null" >
+        questionAnalysis,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="questionid != null" >
+        #{questionid,jdbcType=INTEGER},
+      </if>
+      <if test="questionoption1 != null" >
+        #{questionoption1,jdbcType=VARCHAR},
+      </if>
+      <if test="questionoption2 != null" >
+        #{questionoption2,jdbcType=VARCHAR},
+      </if>
+      <if test="questionoption3 != null" >
+        #{questionoption3,jdbcType=VARCHAR},
+      </if>
+      <if test="questionoption4 != null" >
+        #{questionoption4,jdbcType=VARCHAR},
+      </if>
+      <if test="questionanswer != null" >
+        #{questionanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editdate != null" >
+        #{editdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standbyField01 != null" >
+        #{standbyField01,jdbcType=VARCHAR},
+      </if>
+      <if test="standbyField02 != null" >
+        #{standbyField02,jdbcType=VARCHAR},
+      </if>
+      <if test="questiontopic != null" >
+        #{questiontopic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="questionanalysis != null" >
+        #{questionanalysis,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hyg.yucai.model.TQuestionExample" resultType="java.lang.Integer" >
+    select count(*) from t_question
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_question
+    <set >
+      <if test="record.questionid != null" >
+        questionId = #{record.questionid,jdbcType=INTEGER},
+      </if>
+      <if test="record.questionoption1 != null" >
+        questionOption1 = #{record.questionoption1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionoption2 != null" >
+        questionOption2 = #{record.questionoption2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionoption3 != null" >
+        questionOption3 = #{record.questionoption3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionoption4 != null" >
+        questionOption4 = #{record.questionoption4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questionanswer != null" >
+        questionAnswer = #{record.questionanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdate != null" >
+        createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.editdate != null" >
+        editDate = #{record.editdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.standbyField01 != null" >
+        standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
+      </if>
+      <if test="record.standbyField02 != null" >
+        standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR},
+      </if>
+      <if test="record.questiontopic != null" >
+        questionTopic = #{record.questiontopic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.questionanalysis != null" >
+        questionAnalysis = #{record.questionanalysis,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_question
+    set questionId = #{record.questionid,jdbcType=INTEGER},
+      questionOption1 = #{record.questionoption1,jdbcType=VARCHAR},
+      questionOption2 = #{record.questionoption2,jdbcType=VARCHAR},
+      questionOption3 = #{record.questionoption3,jdbcType=VARCHAR},
+      questionOption4 = #{record.questionoption4,jdbcType=VARCHAR},
+      questionAnswer = #{record.questionanswer,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      editDate = #{record.editdate,jdbcType=TIMESTAMP},
+      standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
+      standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR},
+      questionTopic = #{record.questiontopic,jdbcType=LONGVARCHAR},
+      questionAnalysis = #{record.questionanalysis,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_question
+    set questionId = #{record.questionid,jdbcType=INTEGER},
+      questionOption1 = #{record.questionoption1,jdbcType=VARCHAR},
+      questionOption2 = #{record.questionoption2,jdbcType=VARCHAR},
+      questionOption3 = #{record.questionoption3,jdbcType=VARCHAR},
+      questionOption4 = #{record.questionoption4,jdbcType=VARCHAR},
+      questionAnswer = #{record.questionanswer,jdbcType=VARCHAR},
+      createDate = #{record.createdate,jdbcType=TIMESTAMP},
+      editDate = #{record.editdate,jdbcType=TIMESTAMP},
+      standby_field_01 = #{record.standbyField01,jdbcType=VARCHAR},
+      standby_field_02 = #{record.standbyField02,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hyg.yucai.model.TQuestionWithBLOBs" >
+    update t_question
+    <set >
+      <if test="questionoption1 != null" >
+        questionOption1 = #{questionoption1,jdbcType=VARCHAR},
+      </if>
+      <if test="questionoption2 != null" >
+        questionOption2 = #{questionoption2,jdbcType=VARCHAR},
+      </if>
+      <if test="questionoption3 != null" >
+        questionOption3 = #{questionoption3,jdbcType=VARCHAR},
+      </if>
+      <if test="questionoption4 != null" >
+        questionOption4 = #{questionoption4,jdbcType=VARCHAR},
+      </if>
+      <if test="questionanswer != null" >
+        questionAnswer = #{questionanswer,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null" >
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="editdate != null" >
+        editDate = #{editdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="standbyField01 != null" >
+        standby_field_01 = #{standbyField01,jdbcType=VARCHAR},
+      </if>
+      <if test="standbyField02 != null" >
+        standby_field_02 = #{standbyField02,jdbcType=VARCHAR},
+      </if>
+      <if test="questiontopic != null" >
+        questionTopic = #{questiontopic,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="questionanalysis != null" >
+        questionAnalysis = #{questionanalysis,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hyg.yucai.model.TQuestionWithBLOBs" >
+    update t_question
+    set questionOption1 = #{questionoption1,jdbcType=VARCHAR},
+      questionOption2 = #{questionoption2,jdbcType=VARCHAR},
+      questionOption3 = #{questionoption3,jdbcType=VARCHAR},
+      questionOption4 = #{questionoption4,jdbcType=VARCHAR},
+      questionAnswer = #{questionanswer,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      editDate = #{editdate,jdbcType=TIMESTAMP},
+      standby_field_01 = #{standbyField01,jdbcType=VARCHAR},
+      standby_field_02 = #{standbyField02,jdbcType=VARCHAR},
+      questionTopic = #{questiontopic,jdbcType=LONGVARCHAR},
+      questionAnalysis = #{questionanalysis,jdbcType=LONGVARCHAR}
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hyg.yucai.model.TQuestion" >
+    update t_question
+    set questionOption1 = #{questionoption1,jdbcType=VARCHAR},
+      questionOption2 = #{questionoption2,jdbcType=VARCHAR},
+      questionOption3 = #{questionoption3,jdbcType=VARCHAR},
+      questionOption4 = #{questionoption4,jdbcType=VARCHAR},
+      questionAnswer = #{questionanswer,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      editDate = #{editdate,jdbcType=TIMESTAMP},
+      standby_field_01 = #{standbyField01,jdbcType=VARCHAR},
+      standby_field_02 = #{standbyField02,jdbcType=VARCHAR}
+    where questionId = #{questionid,jdbcType=INTEGER}
+  </update>
+</mapper>

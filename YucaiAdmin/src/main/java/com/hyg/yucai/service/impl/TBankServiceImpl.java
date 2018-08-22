@@ -31,6 +31,30 @@ public class TBankServiceImpl implements TBankService{
 		List<TBankCustom> tbank=tBankItemMapper.selectBankNameByNo(bankno);
 		return tbank;
 	}
+	///添加
+	@Override
+	public int addBank(TBank tBank) throws Exception {
+		int x=tBankMapper.insertSelective(tBank);
+		return x;
+	}
+	//更新
+	@Override
+	public int updateBank(TBank tBank) throws Exception {
+		int x=tBankMapper.updateByPrimaryKeySelective(tBank);
+		return x;
+	}
+	//删除
+	@Override
+	public int delBank(TBank tBank) throws Exception {
+		int x=tBankMapper.deleteByPrimaryKey(tBank.getBankid());
+		return x;
+	}
+	///查询根据id
+	@Override
+	public TBank findBankById(int id) throws Exception {
+		
+		return tBankMapper.selectByPrimaryKey(id);
+	}
 	
 
 }

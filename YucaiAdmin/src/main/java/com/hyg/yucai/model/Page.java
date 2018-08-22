@@ -1,9 +1,10 @@
 package com.hyg.yucai.model;
 
 public class Page {
+	private String draw;
 	private int pagetotal;
 	private int startindex;
-	private int pagesize ;
+	private int pagesize;
 	public int getPagetotal() {
 		return pagetotal;
 	}
@@ -30,6 +31,19 @@ public class Page {
 	}
 	public Page() {
 		super();
+	}
+	public Page(String draw, int pagetotal, int startindex, int pagesize) {
+		super();
+		this.draw = draw;
+		this.pagetotal = pagetotal;
+		this.startindex = startindex;
+		this.pagesize = pagesize;
+	}
+	public String getDraw() {
+		return draw;
+	}
+	public void setDraw(String draw) {
+		this.draw = draw;
 	}
 	
 	

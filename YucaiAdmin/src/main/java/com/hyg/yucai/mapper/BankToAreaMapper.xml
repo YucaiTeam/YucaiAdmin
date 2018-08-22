@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.BankToAreaMapper">
+
+	<resultMap type="com.hyg.yucai.model.BankToArea" id="BankToAreaResultMapper">
+		<id column="areaId" property="areaid" jdbcType="INTEGER" />
+	    <result column="areaName" property="areaname" jdbcType="VARCHAR" />
+	    <result column="areano" property="areano" jdbcType="VARCHAR" />
+	    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+	    <result column="editDate" property="editdate" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<select id="selectAllAreaByBank" resultMap="BankToAreaResultMapper" parameterType="String">
+		select distinct areaId, areaName,a.areano,a.createDate,a.editDate
+		from t_ab ab,t_area a,t_bank b 
+		 
+		<where>
+			ab.bankno=b.bankno and ab.areano=a.areano 
+			<if test="_parameter != null" >
+				and b.bankno=#{_parameter}
+      		</if>	
+		</where> 
+	</select>
+</mapper>

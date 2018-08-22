@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hyg.yucai.mapper.TQuestionCustomMapper" >
+  <resultMap id="BaseResultMap" type="com.hyg.yucai.model.TQuestion" >
+    <id column="questionId" property="questionid" jdbcType="INTEGER" />
+    <result column="questionOption1" property="questionoption1" jdbcType="VARCHAR" />
+    <result column="questionOption2" property="questionoption2" jdbcType="VARCHAR" />
+    <result column="questionOption3" property="questionoption3" jdbcType="VARCHAR" />
+    <result column="questionOption4" property="questionoption4" jdbcType="VARCHAR" />
+    <result column="questionAnswer" property="questionanswer" jdbcType="VARCHAR" />
+    <result column="createDate" property="createdate" jdbcType="TIMESTAMP" />
+    <result column="editDate" property="editdate" jdbcType="TIMESTAMP" />
+    <result column="standby_field_01" property="standbyField01" jdbcType="VARCHAR" />
+    <result column="standby_field_02" property="standbyField02" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.hyg.yucai.model.TQuestionWithBLOBs" extends="BaseResultMap" >
+    <result column="questionTopic" property="questiontopic" jdbcType="LONGVARCHAR" />
+    <result column="questionAnalysis" property="questionanalysis" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <!-- sql语句片段 -->
+  <sql id="Base_Column_List" >
+    questionId, questionOption1, questionOption2, questionOption3, questionOption4, questionAnswer, 
+    createDate, editDate, standby_field_01, standby_field_02
+  </sql>
+  <sql id="Blob_Column_List" >
+    questionTopic, questionAnalysis
+  </sql>
+  
+  <select id="selectByLikeWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TQuestionCustom" >
+    	select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_question
+    <where>
+		<if test="startdate != null and startdate !=''" >
+        	and editDate between #{startdate} and #{enddate}
+      	</if>
+		<if test="textcontent != null and textcontent !=''" >
+		and (questionId like '%${textcontent}%'
+		
+        or questionOption1 like '%${textcontent}%'
+
+
+        or questionOption2 like '%${textcontent}%'
+
+
+        or questionOption3 like '%${textcontent}%'
+
+
+        or questionOption4 like '%${textcontent}%'
+
+
+        or questionAnswer like '%${textcontent}%'
+        
+        
+        or questionTopic like '%${textcontent}%'
+        
+        
+        or questionAnalysis like '%${textcontent}%'
+
+
+        or n.standby_field_01 like '%${textcontent}%'
+
+
+        or n.standby_field_02 like '%${textcontent}%')
+
+        </if>    
+	</where>
+		order by editDate desc
+     <if test="startindex != null and startindex !=''">
+		LIMIT #{startindex}, #{pagesize}
+  	</if>
+  </select>
+  
+ </mapper>

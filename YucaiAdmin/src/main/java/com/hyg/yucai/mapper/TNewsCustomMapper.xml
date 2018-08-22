@@ -14,23 +14,28 @@
     <result column="standby_field_01" property="standbyField01" jdbcType="VARCHAR" />
     <result column="standby_field_02" property="standbyField02" jdbcType="VARCHAR" />
 </resultMap>
-<resultMap id="ResultMapWithBLOBs" type="com.hyg.yucai.model.TNewsCustom" extends="BaseResultMap" >
+<!-- <resultMap id="ResultMapWithBLOBs" type="com.hyg.yucai.model.TNewsCustom" extends="BaseResultMap" >
     <result column="newsContent" property="newscontent" jdbcType="LONGVARCHAR" />
-</resultMap>
+</resultMap> -->
 <!--  -->
 <sql id="Base_Column_List" >
     newsId, newsTitle, newsGuide, newsSource, newsAuthor, n.editDate, a.areaname, 
     b.bankname, n.standby_field_01, n.standby_field_02 
 </sql>
-<sql id="Blob_Column_List" >
+<!-- <sql id="Blob_Column_List" >
     newsContent
-</sql>
+</sql> -->
 <!--  -->
 <!-- 查询所有 -->
-<select id="selectAllNews" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TNewsCustom">
+<select id="selectAllNews" resultMap="BaseResultMap" parameterType="com.hyg.yucai.model.TNewsCustom">
     select 
 	<include refid="Base_Column_List" />
     from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno 
+    <where>
+    	<if test="startdate != null and startdate !=''" >
+        	and n.editDate between #{startdate} and #{enddate}
+      	</if>
+    </where>
     order by editDate desc
     <if test="startindex != null">
 		LIMIT #{startindex}, #{pagesize}
@@ -39,11 +44,11 @@
 </select>
   
 <!-- 动态查询 -->
-<select id="selectAllNewsByDy" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TNewsCustom">
+<select id="selectNewsByDy" resultMap="BaseResultMap" parameterType="com.hyg.yucai.model.TNewsCustom">
     select
     <include refid="Base_Column_List" />
     from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno
-    order by editDate desc
+    
     
     <!-- where标签可以自动添加where，同时处理sql语句中第一个and关键字 -->
 	<where>
@@ -74,35 +79,78 @@
       <if test="standbyField02 != null" >
         and n.standby_field_02 like '%${standbyField02}%'
       </if>
-      <if test="newscontent != null" >
-        and newsContent like '%${newscontent}%'
-      </if>
       <if test="startdate != null and startdate !=''" >
-        and n.createDate between #{startdate} and #{enddate}
+        and n.editDate between #{startdate} and #{enddate}
       </if>
-      <if test="startindex != null">
-		LIMIT #{startindex}, #{pagesize}
-	  </if>
+   
 	</where>
     
 </select>
+
+<!-- 动态查询 -->
+<select id="selectAllNewsByDy" resultMap="BaseResultMap" parameterType="com.hyg.yucai.model.TNewsCustom">
+    select
+    <include refid="Base_Column_List" />
+    from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno
+    
+    
+    <!-- where标签可以自动添加where，同时处理sql语句中第一个and关键字 -->
+	<where>
+	  <if test="newsid != null" >
+        and newsId=#{newsid}
+      </if>
+      <if test="newstitle != null" >
+        and newsTitle like '%${newstitle}%'
+      </if>
+      <if test="newsguide != null" >
+        and newsGuide like '%${newsguide}%'
+      </if>
+      <if test="newssource != null" >
+        and newsSource like '%${newssource}%'
+      </if>
+      <if test="newsauthor != null" >
+        and newsAuthor like '%${newsauthor}%'
+      </if>
+      <if test="areaname != null" >
+        and a.areaname like '%${areaname}%'
+      </if>
+      <if test="bankname != null" >
+        and b.bankname like '%${bankname}%'
+      </if>
+      <if test="standbyField01 != null" >
+        and n.standby_field_01 like '%${standbyField01}%'
+      </if>
+      <if test="standbyField02 != null" >
+        and n.standby_field_02 like '%${standbyField02}%'
+      </if>
+      <if test="startdate != null and startdate !=''" >
+        and n.editDate between #{startdate} and #{enddate}
+      </if>
+      order by editDate desc
+       <if test="startindex != null">
+		LIMIT #{startindex}, #{pagesize}
+	  </if> 
+	</where>
+    
+</select>
+
 <!-- 模糊查询 -->
-<select id="selectAllNewslikeDy" resultMap="ResultMapWithBLOBs" parameterType="com.hyg.yucai.model.TNewsCustom">
+<select id="selectAllNewslikeDy" resultMap="BaseResultMap" parameterType="com.hyg.yucai.model.TNewsCustom">
     select
     <include refid="Base_Column_List" />
     
     from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno 
-    order by editDate desc
+   
     
     <!-- where标签可以自动添加where，同时处理sql语句中第一个and关键字 -->
 	<where>
-		<if test="textcontent != null" >
-		newsId like '%${textcontent}%'
+		<if test="startdate != null and startdate !=''" >
+        	and n.editDate between #{startdate} and #{enddate}
+      	</if>
+		<if test="textcontent != null and textcontent !=''" >
+		and (newsId like '%${textcontent}%'
 		
         or newsTitle like '%${textcontent}%'
-
-
-        or newsGuide like '%${textcontent}%'
 
 
         or newsSource like '%${textcontent}%'
@@ -120,21 +168,61 @@
         or n.standby_field_01 like '%${textcontent}%'
 
 
-        or n.standby_field_02 like '%${textcontent}%'
+        or n.standby_field_02 like '%${textcontent}%')
 
-        or newsContent like '%${textcontent}%'
-        </if>
-        <if test="startdate != null and startdate !=''" >
-        and n.createDate between #{startdate} and #{enddate}
-      	</if>
-      	<if test="startindex != null">
-			LIMIT #{startindex}, #{pagesize}
-		</if>
-        
-        
+        </if>    
 	</where>
+		order by n.editDate desc
+     <if test="startindex != null">
+		LIMIT #{startindex}, #{pagesize}
+  	</if>
     
 </select>
+
+<!--查询总条数  -->
+<select id="selectAllNewslikeDyAndCount" resultType="Integer" parameterType="com.hyg.yucai.model.TNewsCustom">
+    select
+    
+    count(*)
+    
+    from t_news n left join t_area a on n.areano=a.areano left join t_bank b on n.bankno=b.bankno 
+   
+    
+    <!-- where标签可以自动添加where，同时处理sql语句中第一个and关键字 -->
+	<where>
+		<if test="startdate != null and startdate !=''" >
+        	and n.editDate between #{startdate} and #{enddate}
+      	</if>
+		<if test="textcontent != null and textcontent !=''" >
+		and (newsId like '%${textcontent}%'
+		
+        or newsTitle like '%${textcontent}%'
+
+
+        or newsSource like '%${textcontent}%'
+
+
+        or newsAuthor like '%${textcontent}%'
+
+
+        or a.areaname like '%${textcontent}%'
+
+
+        or b.bankname like '%${textcontent}%'
+
+
+        or n.standby_field_01 like '%${textcontent}%'
+
+
+        or n.standby_field_02 like '%${textcontent}%')
+
+        </if>
+     
+	</where>
+	order by n.editDate desc
+    
+</select>
+<!--  -->
 
 
 </mapper>

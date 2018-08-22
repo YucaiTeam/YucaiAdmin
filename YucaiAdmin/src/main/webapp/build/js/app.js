@@ -20,6 +20,8 @@ layui.define(['element', 'nprogress', 'form', 'table', 'loader', 'tab', 'navbar'
         navbar = layui.navbar,
         _componentPath = 'components/';
     tab = layui.tab
+    
+    
     var app = {
         hello: function(str) {
             layer.alert('Hello ' + (str || 'test'));

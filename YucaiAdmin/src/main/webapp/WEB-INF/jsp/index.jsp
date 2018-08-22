@@ -5,6 +5,7 @@
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>誉材网后台管理页面</title>
+    <script src="${pageContext.request.contextPath}/build/js/url.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/plugins/layui/css/layui.css" media="all">
     <link rel="stylesheet" type="text/css" href="http://cdn.bootcss.com/font-awesome/4.6.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/build/css/index.css" media="all">
@@ -63,15 +64,35 @@
                             <dd><a href="javascript:;" kit-target data-options="{url:'app.html',icon:'&#xe658;',title:'App',id:'8'}"><i class="layui-icon">&#xe658;</i><span> app.js主入口</span></a></dd>
                         </dl>
                     </li> -->
-                    <li class="layui-nav-item layui-nav-itemed">
-                        <a class="" href="javascript:;"><i class="fa fa-plug" aria-hidden="true"></i><span> 新闻管理</span></a>
+                    <li class="layui-nav-item">
+                        <a class="" href="javascript:;"> <i class="layui-icon">&#xe63c;</i><span> 新闻管理</span></a>
                         <dl class="layui-nav-child">
                             <dd>
-                                <a href="javascript:;" kit-target data-options="{url:'newsRelease.action',icon:'&#xe6c6;',title:'新闻发布',id:'1'}">
-                                <i class="layui-icon">&#xe6c6;</i><span> 新闻发布</span></a>
+                                <a href="javascript:;" kit-target data-options="{url:'newsRelease.action',icon:'&#xe6b2;',title:'新闻发布',id:'1'}">
+                                <i class="layui-icon">&#xe6b2;</i><span> 新闻发布</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'newsList.action',icon:'&#xe66b;',title:'新闻列表',id:'2'}">
+                                <i class="layui-icon">&#xe66b;</i><span> 新闻列表</span></a>
                             </dd>
                         </dl>
                     </li>
+                    
+                    
+                    <li class="layui-nav-item layui-nav-itemed">
+                        <a class="" href="javascript:;"> <i class="layui-icon">&#xe63c;</i><span> 课程管理</span></a>
+                        <dl class="layui-nav-child">
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'courseRelease.action',icon:'&#xe6b2;',title:'发布课程',id:'3'}">
+                                <i class="layui-icon">&#xe6b2;</i><span>发布课程</span></a>
+                            </dd>
+                            <dd>
+                                <a href="javascript:;" kit-target data-options="{url:'courseList.action',icon:'&#xe6b2;',title:'课程列表',id:'4'}">
+                                <i class="layui-icon">&#xe6b2;</i><span>课程列表</span></a>
+                            </dd>
+                        </dl>
+                    </li>
+                    
                 </ul>
             </div>
         </div>
@@ -84,37 +105,71 @@
             <!-- 底部固定区域 -->
             2018 &copy;
             <a href="#">誉材网</a>&nbsp;&nbsp;www.121ugrow.com
-
         </div>
+        
     </div>
-
+    
+    <!-- 模态框（Modal） -->
+	<div class="modal fade" id="previewNewsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" 
+							aria-hidden="true">×
+					</button>
+					<h4 class="modal-title" id="myModalLabel">
+						新闻内容预览
+					</h4>
+				</div>
+				<div class="modal-body previewBody">
+					hello world
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" 
+							data-dismiss="modal">关闭
+					</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+</body>
+	<script src="https://cdn.bootcss.com/jquery/2.1.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/plugins/layui/layui.js"></script>
-    <script>
-        var message;
-        layui.config({
-            base: 'build/js/'
-        }).use(['app', 'message'], function() {
-            var app = layui.app,
-                $ = layui.jquery,
-                layer = layui.layer;
-            //将message设置为全局以便子页面调用
-            message = layui.message;
-            //主入口
-            app.set({
-                type: 'iframe'
-            }).init();
-            // $('#pay').on('click', function() {
-            //     layer.open({
-            //         title: false,
-            //         type: 1,
-            //         content: '<img src="/build/images/pay.png" />',
-            //         area: ['500px', '250px'],
-            //         shadeClose: true
-            //     });
-            // });
-        });
-    </script>
+	<link href="https://cdn.bootcss.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script>
+	//先到js里面
+	function previewNews(content){
+		//通过js方法进行调用jquery的方法
+		$().previewNewsJQuery(content);
+	}
+	$(function(){
+		//通过js指向到这里，然后就可以实现了
+		$.fn.previewNewsJQuery = function(content) {
+			$(".previewBody").html(content);
+			$("#previewNewsModal").modal('show');
+		}
+	})
+	layui.config({
+	    base: 'build/js/'
+	}).use(['app', 'message'], function() {
+	        app = layui.app,
+	        $ = layui.jquery,
+	        layer = layui.layer;
+	    //将message设置为全局以便子页面调用
+	    message = layui.message;
+	    //主入口
+	    app.set({
+	        type: 'iframe'
+	    }).init();
+	});
+
+	</script>
     <style>
+    	/* 设置动画 */
+    	.layui-side,#container{
+    		-webkit-transition: 0.7s ease;
+    	}
         /* 设置选项卡最右边的样式，使其在最右面 */
         .kit-tab .kit-tab-tool{
           right: 0px;
@@ -127,12 +182,23 @@
         dd{
           padding-left: 17%;
         }
-
+        /* 去掉主页的纵向滚动条 */
+        .kit-layout-admin .layui-body {
+		    overflow: hidden;
+		}
+		/* 模态框 */
+		.modal-dialog {
+		    width: 92%;
+		    margin: 30px auto;
+		}
+		a:link,a:hover,a:active,a:visited {
+			text-decoration:none;
+		} 
         @media only screen and (max-width:900px){
           dd{
             padding-left: 0px;
           }
         }
     </style>
-</body>
+
 </html>
